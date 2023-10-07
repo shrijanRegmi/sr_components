@@ -91,7 +91,7 @@ class _PInputState extends State<SRInput> {
         if (widget.title != null)
           Padding(
             padding: EdgeInsets.only(left: 5.w),
-            child: SRText.subtitle1(widget.title!),
+            child: SRText.titleMedium(widget.title!),
           ),
         if (widget.title != null)
           SizedBox(
@@ -161,7 +161,7 @@ class _PInputState extends State<SRInput> {
             children: [
               Padding(
                 padding: EdgeInsets.only(right: 5.w),
-                child: SRText.body1(
+                child: SRText.bodyLarge(
                   '${widget.limit - _controller.text.length}',
                   style: TextStyle(
                     fontSize: 12.sp,

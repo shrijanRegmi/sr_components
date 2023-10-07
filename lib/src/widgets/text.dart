@@ -5,19 +5,21 @@ import 'package:linkfy_text/linkfy_text.dart';
 import 'package:sr_components/sr_components.dart';
 
 enum _Type {
-  heading1,
-  heading2,
-  heading3,
-  heading4,
-  heading5,
-  heading6,
-  subtitle1,
-  subtitle2,
-  body1,
-  body2,
-  button,
-  caption,
-  overline,
+  displayLarge,
+  displayMedium,
+  displaySmall,
+  headlineLarge,
+  headlineMedium,
+  headLineSmall,
+  titleLarge,
+  titleMedium,
+  titleSmall,
+  bodyLarge,
+  bodyMedium,
+  bodySmall,
+  labelLarge,
+  labelMedium,
+  labelSmall,
 }
 
 class SRText extends StatefulWidget {
@@ -43,7 +45,7 @@ class SRText extends StatefulWidget {
   final Function(ScrollNotification)? onScroll;
   final Function(bool)? onPressedShowMore;
 
-  const SRText.heading1(
+  const SRText.displayLarge(
     this.value, {
     Key? key,
     this.style,
@@ -60,10 +62,10 @@ class SRText extends StatefulWidget {
     this.height,
     this.onScroll,
     this.onPressedShowMore,
-  })  : type = _Type.heading1,
+  })  : type = _Type.displayLarge,
         super(key: key);
 
-  const SRText.heading2(
+  const SRText.displayMedium(
     this.value, {
     Key? key,
     this.style,
@@ -80,10 +82,10 @@ class SRText extends StatefulWidget {
     this.height,
     this.onScroll,
     this.onPressedShowMore,
-  })  : type = _Type.heading2,
+  })  : type = _Type.displayMedium,
         super(key: key);
 
-  const SRText.heading3(
+  const SRText.displaySmall(
     this.value, {
     Key? key,
     this.style,
@@ -100,10 +102,10 @@ class SRText extends StatefulWidget {
     this.height,
     this.onScroll,
     this.onPressedShowMore,
-  })  : type = _Type.heading3,
+  })  : type = _Type.displaySmall,
         super(key: key);
 
-  const SRText.heading4(
+  const SRText.headlineLarge(
     this.value, {
     Key? key,
     this.style,
@@ -120,10 +122,10 @@ class SRText extends StatefulWidget {
     this.height,
     this.onScroll,
     this.onPressedShowMore,
-  })  : type = _Type.heading4,
+  })  : type = _Type.headlineLarge,
         super(key: key);
 
-  const SRText.heading5(
+  const SRText.headlineMedium(
     this.value, {
     Key? key,
     this.style,
@@ -140,10 +142,10 @@ class SRText extends StatefulWidget {
     this.height,
     this.onScroll,
     this.onPressedShowMore,
-  })  : type = _Type.heading5,
+  })  : type = _Type.headlineMedium,
         super(key: key);
 
-  const SRText.heading6(
+  const SRText.headlineSmall(
     this.value, {
     Key? key,
     this.style,
@@ -160,10 +162,10 @@ class SRText extends StatefulWidget {
     this.height,
     this.onScroll,
     this.onPressedShowMore,
-  })  : type = _Type.heading6,
+  })  : type = _Type.headLineSmall,
         super(key: key);
 
-  const SRText.subtitle1(
+  const SRText.titleLarge(
     this.value, {
     Key? key,
     this.style,
@@ -180,10 +182,10 @@ class SRText extends StatefulWidget {
     this.height,
     this.onScroll,
     this.onPressedShowMore,
-  })  : type = _Type.subtitle1,
+  })  : type = _Type.titleLarge,
         super(key: key);
 
-  const SRText.subtitle2(
+  const SRText.titleMedium(
     this.value, {
     Key? key,
     this.style,
@@ -200,10 +202,10 @@ class SRText extends StatefulWidget {
     this.height,
     this.onScroll,
     this.onPressedShowMore,
-  })  : type = _Type.subtitle2,
+  })  : type = _Type.titleMedium,
         super(key: key);
 
-  const SRText.body1(
+  const SRText.titleSmall(
     this.value, {
     Key? key,
     this.style,
@@ -220,10 +222,10 @@ class SRText extends StatefulWidget {
     this.height,
     this.onScroll,
     this.onPressedShowMore,
-  })  : type = _Type.body1,
+  })  : type = _Type.titleSmall,
         super(key: key);
 
-  const SRText.body2(
+  const SRText.bodyLarge(
     this.value, {
     Key? key,
     this.style,
@@ -240,10 +242,10 @@ class SRText extends StatefulWidget {
     this.height,
     this.onScroll,
     this.onPressedShowMore,
-  })  : type = _Type.body2,
+  })  : type = _Type.bodyLarge,
         super(key: key);
 
-  const SRText.button(
+  const SRText.bodyMedium(
     this.value, {
     Key? key,
     this.style,
@@ -260,10 +262,10 @@ class SRText extends StatefulWidget {
     this.height,
     this.onScroll,
     this.onPressedShowMore,
-  })  : type = _Type.button,
+  })  : type = _Type.bodyMedium,
         super(key: key);
 
-  const SRText.caption(
+  const SRText.bodySmall(
     this.value, {
     Key? key,
     this.style,
@@ -280,10 +282,10 @@ class SRText extends StatefulWidget {
     this.height,
     this.onScroll,
     this.onPressedShowMore,
-  })  : type = _Type.caption,
+  })  : type = _Type.labelLarge,
         super(key: key);
 
-  const SRText.overline(
+  const SRText.labelLarge(
     this.value, {
     Key? key,
     this.style,
@@ -300,7 +302,47 @@ class SRText extends StatefulWidget {
     this.height,
     this.onScroll,
     this.onPressedShowMore,
-  })  : type = _Type.overline,
+  })  : type = _Type.labelLarge,
+        super(key: key);
+
+  const SRText.labelMedium(
+    this.value, {
+    Key? key,
+    this.style,
+    this.linkStyle,
+    this.textAlign = TextAlign.start,
+    this.limit,
+    this.overflow,
+    this.onPressed,
+    this.linkify = false,
+    this.onLinkPressed,
+    this.readMoreText = 'Show',
+    this.withReadMore = false,
+    this.readMoreTextStyle,
+    this.height,
+    this.onScroll,
+    this.onPressedShowMore,
+  })  : type = _Type.labelMedium,
+        super(key: key);
+
+  const SRText.labelSmall(
+    this.value, {
+    Key? key,
+    this.style,
+    this.linkStyle,
+    this.textAlign = TextAlign.start,
+    this.limit,
+    this.overflow,
+    this.onPressed,
+    this.linkify = false,
+    this.onLinkPressed,
+    this.readMoreText = 'Show',
+    this.withReadMore = false,
+    this.readMoreTextStyle,
+    this.height,
+    this.onScroll,
+    this.onPressedShowMore,
+  })  : type = _Type.labelSmall,
         super(key: key);
 
   @override
@@ -330,43 +372,49 @@ class _PTextState extends State<SRText> {
 
   void _chooseDefaultStyle() {
     switch (widget.type) {
-      case _Type.heading1:
+      case _Type.displayLarge:
         _defaultStyle = context.theme.textTheme.displayLarge;
         break;
-      case _Type.heading2:
+      case _Type.displayMedium:
         _defaultStyle = context.theme.textTheme.displayMedium;
         break;
-      case _Type.heading3:
+      case _Type.displaySmall:
         _defaultStyle = context.theme.textTheme.displaySmall;
         break;
-      case _Type.heading4:
+      case _Type.headlineLarge:
+        _defaultStyle = context.theme.textTheme.headlineLarge;
+        break;
+      case _Type.headlineMedium:
         _defaultStyle = context.theme.textTheme.headlineMedium;
         break;
-      case _Type.heading5:
+      case _Type.headLineSmall:
         _defaultStyle = context.theme.textTheme.headlineSmall;
         break;
-      case _Type.heading6:
+      case _Type.titleLarge:
         _defaultStyle = context.theme.textTheme.titleLarge;
         break;
-      case _Type.subtitle1:
+      case _Type.titleMedium:
         _defaultStyle = context.theme.textTheme.titleMedium;
         break;
-      case _Type.subtitle2:
+      case _Type.titleSmall:
         _defaultStyle = context.theme.textTheme.titleSmall;
         break;
-      case _Type.body1:
+      case _Type.bodyLarge:
         _defaultStyle = context.theme.textTheme.bodyLarge;
         break;
-      case _Type.body2:
+      case _Type.bodyMedium:
         _defaultStyle = context.theme.textTheme.bodyMedium;
         break;
-      case _Type.button:
-        _defaultStyle = context.theme.textTheme.labelLarge;
-        break;
-      case _Type.caption:
+      case _Type.bodySmall:
         _defaultStyle = context.theme.textTheme.bodySmall;
         break;
-      case _Type.overline:
+      case _Type.labelLarge:
+        _defaultStyle = context.theme.textTheme.labelLarge;
+        break;
+      case _Type.labelMedium:
+        _defaultStyle = context.theme.textTheme.labelMedium;
+        break;
+      case _Type.labelSmall:
         _defaultStyle = context.theme.textTheme.labelSmall;
         break;
       default:
