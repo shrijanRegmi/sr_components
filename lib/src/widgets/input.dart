@@ -107,10 +107,6 @@ class _PInputState extends State<SRInput> {
             inputFormatters: widget.inputFormatters,
             enabled: widget.enabled,
             obscureText: !_passwordVisible,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 14.sp,
-            ),
             maxLength: widget.limit,
             keyboardType: widget.textInputType,
             minLines:
