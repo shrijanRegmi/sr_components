@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sr_components/src/widgets/spinner.dart';
+import 'package:sr_components/sr_components.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 enum _Type {
   filled,
@@ -85,7 +85,7 @@ class SRButton extends StatelessWidget {
     );
 
     return SizedBox(
-      width: width?.w,
+      width: width?.spMin,
       child: ElevatedButton(
         onPressed: onPressed,
         style: elevatedButtonStyle,
@@ -94,8 +94,8 @@ class SRButton extends StatelessWidget {
           children: [
             if (icon != null) icon ?? Container(),
             if (icon != null && value != null)
-              const SizedBox(
-                width: 10.0,
+              SizedBox(
+                width: 10.spMin,
               ),
             if (value != null)
               Text(
@@ -103,13 +103,13 @@ class SRButton extends StatelessWidget {
                 style: valueStyle,
               ),
             if (isLoading && value != null)
-              const SizedBox(
-                width: 20.0,
+              SizedBox(
+                width: 20.spMin,
               ),
             if (isLoading)
               loader ??
                   SRSpinner(
-                    size: 15.h,
+                    size: 15.spMin,
                     color: Colors.white,
                   )
           ],
@@ -131,7 +131,7 @@ class SRButton extends StatelessWidget {
     );
 
     return SizedBox(
-      width: width?.w,
+      width: width?.spMin,
       child: OutlinedButton(
         onPressed: onPressed,
         style: outlinedButtonStyle,
@@ -140,8 +140,8 @@ class SRButton extends StatelessWidget {
           children: [
             if (icon != null) icon ?? Container(),
             if (icon != null && value != null)
-              const SizedBox(
-                width: 10.0,
+              SizedBox(
+                width: 10.spMin,
               ),
             if (value != null)
               Text(
@@ -149,13 +149,13 @@ class SRButton extends StatelessWidget {
                 style: valueStyle,
               ),
             if (isLoading && value != null)
-              const SizedBox(
-                width: 20.0,
+              SizedBox(
+                width: 20.spMin,
               ),
             if (isLoading)
               loader ??
                   SRSpinner(
-                    size: 15.h,
+                    size: 15.spMin,
                     color: outlinedButtonStyle.side?.resolve(
                       const <MaterialState>{
                         MaterialState.pressed,
