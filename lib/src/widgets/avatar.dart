@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_boring_avatars/flutter_boring_avatars.dart';
 import 'package:sr_components/sr_components.dart';
 
 enum _Type {
@@ -23,6 +24,9 @@ class SRAvatar extends StatefulWidget {
 
   final double size;
   final Color? color;
+  final String? avatarName;
+  final List<String> avatarNames;
+  final List<Color> avatarColors;
   final TextStyle? letterStyle;
   final String? heroTag;
   final Widget? overlayWidget;
@@ -42,6 +46,8 @@ class SRAvatar extends StatefulWidget {
     this.size = 45.0,
     this.opacity = 1.0,
     this.color,
+    this.avatarName,
+    this.avatarColors = const [],
     this.heroTag,
     this.overlayWidget,
     this.border,
@@ -56,6 +62,7 @@ class SRAvatar extends StatefulWidget {
         letterStyle = null,
         spreadFactor = 1.0,
         package = null,
+        avatarNames = const [],
         _type = _Type.network;
 
   const SRAvatar.multiNetwork(
@@ -68,6 +75,8 @@ class SRAvatar extends StatefulWidget {
     this.heroTag,
     this.overlayWidget,
     this.border,
+    this.avatarColors = const [],
+    this.avatarNames = const [],
     this.borderGap = 0.0,
     this.borderGapColor,
     this.isSelected = false,
@@ -79,6 +88,7 @@ class SRAvatar extends StatefulWidget {
         letter = null,
         letterStyle = null,
         package = null,
+        avatarName = null,
         _type = _Type.multiNetwork;
 
   const SRAvatar.file(
@@ -102,6 +112,9 @@ class SRAvatar extends StatefulWidget {
         package = null,
         letterStyle = null,
         spreadFactor = 1.0,
+        avatarColors = const [],
+        avatarName = null,
+        avatarNames = const [],
         _type = _Type.file;
 
   const SRAvatar.asset(
@@ -125,6 +138,9 @@ class SRAvatar extends StatefulWidget {
         letter = null,
         letterStyle = null,
         spreadFactor = 1.0,
+        avatarColors = const [],
+        avatarName = null,
+        avatarNames = const [],
         _type = _Type.asset;
 
   const SRAvatar.letter(
@@ -148,6 +164,9 @@ class SRAvatar extends StatefulWidget {
         package = null,
         assetPath = null,
         spreadFactor = 1.0,
+        avatarColors = const [],
+        avatarName = null,
+        avatarNames = const [],
         _type = _Type.letter;
 
   @override
@@ -174,16 +193,23 @@ class _SRAvatarState extends State<SRAvatar> {
   }
 
   Widget _networkBuilder() {
+    if (widget.imgUrl == null) {
+      return _errorPlaceholderBuilder(
+        name: widget.avatarName!,
+      );
+    }
     return _baseBuilder(
       Container(
-        width: widget.size,
-        height: widget.size,
+        width: widget.size.spMin,
+        height: widget.size.spMin,
         decoration: BoxDecoration(
           color: SRColors.extraLightGrey,
           shape: BoxShape.circle,
           border: widget.border,
           image: DecorationImage(
-            image: CachedNetworkImageProvider('${widget.imgUrl}'),
+            image: CachedNetworkImageProvider(
+              '${widget.imgUrl}',
+            ),
             fit: BoxFit.cover,
           ),
         ),
@@ -198,6 +224,7 @@ class _SRAvatarState extends State<SRAvatar> {
     return _baseBuilder(
       images.length <= 1
           ? _networkStackItemBuilder(
+              index: 0,
               imgUrl: images.isEmpty ? null : images[0],
               size: widget.size,
               border: false,
@@ -227,6 +254,7 @@ class _SRAvatarState extends State<SRAvatar> {
                             ? 10.0 * widget.spreadFactor
                             : null,
                     child: _networkStackItemBuilder(
+                      index: i,
                       imgUrl: images[i],
                       size: i == 0 ? widget.size - 3 : widget.size - 6,
                     ),
@@ -240,8 +268,8 @@ class _SRAvatarState extends State<SRAvatar> {
   Widget _fileBuilder() {
     return _baseBuilder(
       Container(
-        width: widget.size,
-        height: widget.size,
+        width: widget.size.spMin,
+        height: widget.size.spMin,
         decoration: BoxDecoration(
           color: widget.color,
           shape: BoxShape.circle,
@@ -260,8 +288,8 @@ class _SRAvatarState extends State<SRAvatar> {
   }) {
     return _baseBuilder(
       Container(
-        width: widget.size,
-        height: widget.size,
+        width: widget.size.spMin,
+        height: widget.size.spMin,
         decoration: BoxDecoration(
           color: widget.color,
           shape: BoxShape.circle,
@@ -280,8 +308,8 @@ class _SRAvatarState extends State<SRAvatar> {
   Widget _letterBuilder() {
     return _baseBuilder(
       Container(
-        width: widget.size,
-        height: widget.size,
+        width: widget.size.spMin,
+        height: widget.size.spMin,
         decoration: BoxDecoration(
           color: widget.color,
           shape: BoxShape.circle,
@@ -305,9 +333,9 @@ class _SRAvatarState extends State<SRAvatar> {
       child: Stack(
         children: [
           Container(
-            width: (widget.size + 2).w,
-            height: (widget.size + 2).h,
-            padding: EdgeInsets.all(widget.borderGap.w),
+            width: (widget.size + 2).spMin,
+            height: (widget.size + 2).spMin,
+            padding: EdgeInsets.all(widget.borderGap.spMin),
             decoration: BoxDecoration(
               color: widget.borderGapColor,
               shape: BoxShape.circle,
@@ -322,14 +350,21 @@ class _SRAvatarState extends State<SRAvatar> {
   }
 
   Widget _networkStackItemBuilder({
+    required final int index,
     required final String? imgUrl,
     required final double size,
     final bool border = true,
   }) {
+    if (imgUrl == null) {
+      final name =
+          widget.avatarNames.length <= index ? '' : widget.avatarNames[index];
+      return _errorPlaceholderBuilder(name: name);
+    }
+
     return Container(
-      width: (size + 2).w,
-      height: (size + 2).h,
-      padding: EdgeInsets.all(widget.borderGap.w),
+      width: (size + 2).spMin,
+      height: (size + 2).spMin,
+      padding: EdgeInsets.all(widget.borderGap.spMin),
       decoration: BoxDecoration(
         color: widget.borderGapColor,
         shape: BoxShape.circle,
@@ -339,12 +374,10 @@ class _SRAvatarState extends State<SRAvatar> {
         decoration: BoxDecoration(
           color: SRColors.extraLightGrey2,
           shape: BoxShape.circle,
-          image: imgUrl == null
-              ? null
-              : DecorationImage(
-                  image: CachedNetworkImageProvider(imgUrl),
-                  fit: BoxFit.cover,
-                ),
+          image: DecorationImage(
+            image: CachedNetworkImageProvider(imgUrl),
+            fit: BoxFit.cover,
+          ),
         ),
       ),
     );
@@ -365,6 +398,27 @@ class _SRAvatarState extends State<SRAvatar> {
           ),
         ),
       ).pad(2.0),
+    );
+  }
+
+  Widget _errorPlaceholderBuilder({
+    required final String name,
+  }) {
+    return _baseBuilder(
+      Container(
+        width: widget.size.spMin,
+        height: widget.size.spMin,
+        decoration: BoxDecoration(
+          color: SRColors.extraLightGrey,
+          shape: BoxShape.circle,
+          border: widget.border,
+        ),
+        child: BoringAvatars(
+          name: name,
+          colors: widget.avatarColors,
+          type: BoringAvatarsType.beam,
+        ),
+      ),
     );
   }
 }

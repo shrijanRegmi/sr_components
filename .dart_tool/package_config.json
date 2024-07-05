@@ -92,6 +92,12 @@
       "languageVersion": "2.15"
     },
     {
+      "name": "flutter_boring_avatars",
+      "rootUri": "file:///Users/shrijanregmi/.pub-cache/hosted/pub.dev/flutter_boring_avatars-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
       "name": "flutter_cache_manager",
       "rootUri": "file:///Users/shrijanregmi/.pub-cache/hosted/pub.dev/flutter_cache_manager-3.3.0",
       "packageUri": "lib/",
@@ -302,6 +308,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "svg_path_parser",
+      "rootUri": "file:///Users/shrijanregmi/.pub-cache/hosted/pub.dev/svg_path_parser-1.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "synchronized",
       "rootUri": "file:///Users/shrijanregmi/.pub-cache/hosted/pub.dev/synchronized-3.1.0",
       "packageUri": "lib/",
@@ -380,7 +392,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-06-25T13:53:28.598300Z",
+  "generated": "2024-07-05T05:11:37.947494Z",
   "generator": "pub",
   "generatorVersion": "3.0.5"
 }

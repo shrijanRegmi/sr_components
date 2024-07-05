@@ -15,6 +15,7 @@ dependencies:
   flutter_screenutil: ^5.8.4
   flutter_svg: ^2.0.7
   linkfy_text: ^1.1.5
+  flutter_boring_avatars: ^1.1.0
 
 dev_dependencies:
   flutter_test:
