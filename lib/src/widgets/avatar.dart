@@ -199,20 +199,28 @@ class _SRAvatarState extends State<SRAvatar> {
       );
     }
     return _baseBuilder(
-      Container(
+      CachedNetworkImage(
         width: widget.size.spMin,
         height: widget.size.spMin,
-        decoration: BoxDecoration(
-          color: SRColors.extraLightGrey,
-          shape: BoxShape.circle,
-          border: widget.border,
-          image: DecorationImage(
-            image: CachedNetworkImageProvider(
-              '${widget.imgUrl}',
-            ),
-            fit: BoxFit.cover,
-          ),
+        imageUrl: widget.imgUrl!,
+        errorWidget: (context, a, b) => _errorPlaceholderBuilder(
+          name: widget.avatarName ?? '',
         ),
+        imageBuilder: (context, imageProvider) {
+          return Container(
+            width: widget.size.spMin,
+            height: widget.size.spMin,
+            decoration: BoxDecoration(
+              color: SRColors.extraLightGrey,
+              shape: BoxShape.circle,
+              border: widget.border,
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -355,11 +363,8 @@ class _SRAvatarState extends State<SRAvatar> {
     required final double size,
     final bool border = true,
   }) {
-    if (imgUrl == null) {
-      final name =
-          widget.avatarNames.length <= index ? '' : widget.avatarNames[index];
-      return _errorPlaceholderBuilder(name: name);
-    }
+    final name =
+        widget.avatarNames.length <= index ? '' : widget.avatarNames[index];
 
     return Container(
       width: (size + 2).spMin,
@@ -370,16 +375,28 @@ class _SRAvatarState extends State<SRAvatar> {
         shape: BoxShape.circle,
         border: border ? widget.border : null,
       ),
-      child: Container(
-        decoration: BoxDecoration(
-          color: SRColors.extraLightGrey2,
-          shape: BoxShape.circle,
-          image: DecorationImage(
-            image: CachedNetworkImageProvider(imgUrl),
-            fit: BoxFit.cover,
-          ),
-        ),
-      ),
+      child: imgUrl == null
+          ? _errorPlaceholderBuilder(name: name)
+          : CachedNetworkImage(
+              width: size.spMin,
+              height: size.spMin,
+              imageUrl: imgUrl,
+              errorWidget: (context, a, b) => _errorPlaceholderBuilder(
+                name: name,
+              ),
+              imageBuilder: (context, imageProvider) {
+                return Container(
+                  decoration: BoxDecoration(
+                    color: SRColors.extraLightGrey2,
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                );
+              },
+            ),
     );
   }
 
