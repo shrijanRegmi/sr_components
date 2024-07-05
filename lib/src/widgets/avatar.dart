@@ -195,7 +195,7 @@ class _SRAvatarState extends State<SRAvatar> {
   Widget _networkBuilder() {
     if (widget.imgUrl == null) {
       return _errorPlaceholderBuilder(
-        name: widget.avatarName!,
+        name: widget.avatarName ?? '',
       );
     }
     return _baseBuilder(
