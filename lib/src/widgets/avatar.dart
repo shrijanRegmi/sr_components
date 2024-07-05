@@ -432,7 +432,12 @@ class _SRAvatarState extends State<SRAvatar> {
         ),
         child: BoringAvatars(
           name: name,
-          colors: widget.avatarColors,
+          colors: widget.avatarColors.isEmpty
+              ? [
+                  SRColors.primary,
+                  SRColors.secondary,
+                ]
+              : widget.avatarColors,
           type: BoringAvatarsType.beam,
         ),
       ),
