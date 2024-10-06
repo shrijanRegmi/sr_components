@@ -6,9 +6,11 @@ class SRInput extends StatefulWidget {
   const SRInput({
     Key? key,
     this.controller,
+    this.textStyle,
     this.autoFocus = false,
     this.contentPadding,
     this.hintText = '',
+    this.hintStyle,
     this.onPressed,
     this.onFormSubmitted,
     this.onChanged,
@@ -26,8 +28,10 @@ class SRInput extends StatefulWidget {
   }) : super(key: key);
 
   final TextEditingController? controller;
+  final TextStyle? textStyle;
   final bool autoFocus;
   final String hintText;
+  final TextStyle? hintStyle;
   final EdgeInsets? contentPadding;
   final Function()? onPressed;
   final Function(String)? onFormSubmitted;
@@ -102,6 +106,7 @@ class _PInputState extends State<SRInput> {
           onTap: widget.onPressed,
           child: TextFormField(
             controller: _controller,
+            style: widget.textStyle,
             autofocus: widget.autoFocus,
             onTap: widget.onPressed,
             inputFormatters: widget.inputFormatters,
@@ -121,6 +126,7 @@ class _PInputState extends State<SRInput> {
             },
             decoration: InputDecoration(
               hintText: widget.hintText,
+              hintStyle: widget.hintStyle,
               counterText: '',
               contentPadding: widget.contentPadding ??
                   context.theme.inputDecorationTheme.contentPadding,
