@@ -23,6 +23,7 @@ class SRInput extends StatefulWidget {
     this.title,
     this.initialValue,
     this.textInputType = TextInputType.text,
+    this.textInputAction = TextInputAction.done,
     this.limit = 5000,
     this.inputFormatters = const [],
   }) : super(key: key);
@@ -45,6 +46,7 @@ class SRInput extends StatefulWidget {
   final String? title;
   final String? initialValue;
   final TextInputType textInputType;
+  final TextInputAction textInputAction;
   final int limit;
   final List<TextInputFormatter> inputFormatters;
 
@@ -117,7 +119,7 @@ class _PInputState extends State<SRInput> {
             minLines:
                 widget.textInputType == TextInputType.multiline ? 1 : null,
             maxLines: widget.textInputType == TextInputType.multiline ? 8 : 1,
-            textInputAction: TextInputAction.done,
+            textInputAction: widget.textInputAction,
             onFieldSubmitted: widget.onFormSubmitted,
             textCapitalization: widget.textCapitalization,
             onChanged: (val) {
