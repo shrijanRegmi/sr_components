@@ -25,6 +25,8 @@ class SRInput extends StatefulWidget {
     this.textInputType = TextInputType.text,
     this.textInputAction = TextInputAction.done,
     this.limit = 5000,
+    this.minLines,
+    this.maxLines,
     this.inputFormatters = const [],
   }) : super(key: key);
 
@@ -48,6 +50,8 @@ class SRInput extends StatefulWidget {
   final TextInputType textInputType;
   final TextInputAction textInputAction;
   final int limit;
+  final int? minLines;
+  final int? maxLines;
   final List<TextInputFormatter> inputFormatters;
 
   @override
@@ -116,9 +120,10 @@ class _PInputState extends State<SRInput> {
             obscureText: !_passwordVisible,
             maxLength: widget.limit,
             keyboardType: widget.textInputType,
-            minLines:
-                widget.textInputType == TextInputType.multiline ? 1 : null,
-            maxLines: widget.textInputType == TextInputType.multiline ? 8 : 1,
+            minLines: widget.minLines ??
+                (widget.textInputType == TextInputType.multiline ? 1 : null),
+            maxLines: widget.maxLines ??
+                (widget.textInputType == TextInputType.multiline ? 8 : 1),
             textInputAction: widget.textInputAction,
             onFieldSubmitted: widget.onFormSubmitted,
             textCapitalization: widget.textCapitalization,
