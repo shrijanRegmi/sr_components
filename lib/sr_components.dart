@@ -10,6 +10,7 @@ export './src/widgets/round_icon_button.dart';
 export './src/widgets/spinner.dart';
 
 export './src/extensions/context_extension.dart';
+export './src/extensions/context_navigation_extension.dart';
 export './src/extensions/widget_extension.dart';
 
 export './src/utils/colors.dart';
