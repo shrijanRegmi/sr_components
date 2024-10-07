@@ -157,10 +157,10 @@ class SRButton extends StatelessWidget {
                   SRSpinner(
                     size: 15.spMin,
                     color: outlinedButtonStyle.side?.resolve(
-                      const <MaterialState>{
-                        MaterialState.pressed,
-                        MaterialState.hovered,
-                        MaterialState.focused,
+                      const <WidgetState>{
+                        WidgetState.pressed,
+                        WidgetState.hovered,
+                        WidgetState.focused,
                       },
                     )?.color,
                   ),
