@@ -127,4 +127,16 @@ extension WidgetExt on Widget {
         height: height?.spMin,
         child: Center(child: this),
       );
+
+  /// A wrapper that can be used to hide the scrollbar of a [ListView] or [SingleChildScrollView].
+  Widget hideScrollbarWrap(
+    final BuildContext context,
+  ) {
+    return ScrollConfiguration(
+      behavior: ScrollConfiguration.of(context).copyWith(
+        scrollbars: false,
+      ),
+      child: this,
+    );
+  }
 }
