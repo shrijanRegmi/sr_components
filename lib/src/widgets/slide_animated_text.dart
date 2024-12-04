@@ -27,6 +27,11 @@ class SlideAnimatedText extends StatefulWidget {
     this.style,
     this.styleOnHover,
     this.autoStartAnimation = false,
+    this.animationDuration,
+    this.curve,
+    this.beginOffset,
+    this.endOffset,
+    this.returnBack = false,
     this.onPressed,
   }) : type = _Type.displayLarge;
 
@@ -37,6 +42,11 @@ class SlideAnimatedText extends StatefulWidget {
     this.style,
     this.styleOnHover,
     this.autoStartAnimation = false,
+    this.animationDuration,
+    this.curve,
+    this.beginOffset,
+    this.endOffset,
+    this.returnBack = false,
     this.onPressed,
   }) : type = _Type.displayMedium;
 
@@ -47,6 +57,11 @@ class SlideAnimatedText extends StatefulWidget {
     this.style,
     this.styleOnHover,
     this.autoStartAnimation = false,
+    this.animationDuration,
+    this.curve,
+    this.beginOffset,
+    this.endOffset,
+    this.returnBack = false,
     this.onPressed,
   }) : type = _Type.displaySmall;
 
@@ -57,6 +72,11 @@ class SlideAnimatedText extends StatefulWidget {
     this.style,
     this.styleOnHover,
     this.autoStartAnimation = false,
+    this.animationDuration,
+    this.curve,
+    this.beginOffset,
+    this.endOffset,
+    this.returnBack = false,
     this.onPressed,
   }) : type = _Type.headlineLarge;
 
@@ -67,6 +87,11 @@ class SlideAnimatedText extends StatefulWidget {
     this.style,
     this.styleOnHover,
     this.autoStartAnimation = false,
+    this.animationDuration,
+    this.curve,
+    this.beginOffset,
+    this.endOffset,
+    this.returnBack = false,
     this.onPressed,
   }) : type = _Type.headlineMedium;
 
@@ -77,6 +102,11 @@ class SlideAnimatedText extends StatefulWidget {
     this.style,
     this.styleOnHover,
     this.autoStartAnimation = false,
+    this.animationDuration,
+    this.curve,
+    this.beginOffset,
+    this.endOffset,
+    this.returnBack = false,
     this.onPressed,
   }) : type = _Type.headLineSmall;
 
@@ -87,6 +117,11 @@ class SlideAnimatedText extends StatefulWidget {
     this.style,
     this.styleOnHover,
     this.autoStartAnimation = false,
+    this.animationDuration,
+    this.curve,
+    this.beginOffset,
+    this.endOffset,
+    this.returnBack = false,
     this.onPressed,
   }) : type = _Type.titleLarge;
 
@@ -97,6 +132,11 @@ class SlideAnimatedText extends StatefulWidget {
     this.style,
     this.styleOnHover,
     this.autoStartAnimation = false,
+    this.animationDuration,
+    this.curve,
+    this.beginOffset,
+    this.endOffset,
+    this.returnBack = false,
     this.onPressed,
   }) : type = _Type.titleMedium;
 
@@ -107,6 +147,11 @@ class SlideAnimatedText extends StatefulWidget {
     this.style,
     this.styleOnHover,
     this.autoStartAnimation = false,
+    this.animationDuration,
+    this.curve,
+    this.beginOffset,
+    this.endOffset,
+    this.returnBack = false,
     this.onPressed,
   }) : type = _Type.titleSmall;
 
@@ -117,6 +162,11 @@ class SlideAnimatedText extends StatefulWidget {
     this.style,
     this.styleOnHover,
     this.autoStartAnimation = false,
+    this.animationDuration,
+    this.curve,
+    this.beginOffset,
+    this.endOffset,
+    this.returnBack = false,
     this.onPressed,
   }) : type = _Type.bodyLarge;
 
@@ -127,6 +177,11 @@ class SlideAnimatedText extends StatefulWidget {
     this.style,
     this.styleOnHover,
     this.autoStartAnimation = false,
+    this.animationDuration,
+    this.curve,
+    this.beginOffset,
+    this.endOffset,
+    this.returnBack = false,
     this.onPressed,
   }) : type = _Type.bodyMedium;
 
@@ -137,6 +192,11 @@ class SlideAnimatedText extends StatefulWidget {
     this.style,
     this.styleOnHover,
     this.autoStartAnimation = false,
+    this.animationDuration,
+    this.curve,
+    this.beginOffset,
+    this.endOffset,
+    this.returnBack = false,
     this.onPressed,
   }) : type = _Type.bodySmall;
 
@@ -147,6 +207,11 @@ class SlideAnimatedText extends StatefulWidget {
     this.style,
     this.styleOnHover,
     this.autoStartAnimation = false,
+    this.animationDuration,
+    this.curve,
+    this.beginOffset,
+    this.endOffset,
+    this.returnBack = false,
     this.onPressed,
   }) : type = _Type.labelLarge;
 
@@ -157,6 +222,11 @@ class SlideAnimatedText extends StatefulWidget {
     this.style,
     this.styleOnHover,
     this.autoStartAnimation = false,
+    this.animationDuration,
+    this.curve,
+    this.beginOffset,
+    this.endOffset,
+    this.returnBack = false,
     this.onPressed,
   }) : type = _Type.labelMedium;
 
@@ -167,6 +237,11 @@ class SlideAnimatedText extends StatefulWidget {
     this.style,
     this.styleOnHover,
     this.autoStartAnimation = false,
+    this.animationDuration,
+    this.curve,
+    this.beginOffset,
+    this.endOffset,
+    this.returnBack = false,
     this.onPressed,
   }) : type = _Type.labelSmall;
 
@@ -184,6 +259,21 @@ class SlideAnimatedText extends StatefulWidget {
 
   /// Whether to wait for the user to hover or auto start the animation.
   final bool autoStartAnimation;
+
+  /// The duration of the animation.
+  final Duration? animationDuration;
+
+  /// The curve of the animation.
+  final Curve? curve;
+
+  /// The offset from which the animation should start.
+  final Offset? beginOffset;
+
+  /// The offset to which the animation should end.
+  final Offset? endOffset;
+
+  /// Whether the text should return back to the original position after animating.
+  final bool returnBack;
 
   /// The callback that is called when the button is pressed.
   final void Function()? onPressed;
@@ -206,7 +296,7 @@ class _AnimatedTextState extends State<SlideAnimatedText>
     _controllers = List.generate(widget.value.length, (index) {
       return AnimationController(
         vsync: this,
-        duration: const Duration(milliseconds: 600),
+        duration: widget.animationDuration ?? const Duration(milliseconds: 600),
       );
     });
 
@@ -214,21 +304,31 @@ class _AnimatedTextState extends State<SlideAnimatedText>
       return TweenSequence<Offset>([
         TweenSequenceItem(
           tween: Tween<Offset>(
-            begin: const Offset(0, 0),
-            end: const Offset(0, -1),
+            begin: widget.beginOffset ?? const Offset(0, 0),
+            end: widget.endOffset ?? const Offset(0, -1),
           ),
           weight: 50,
         ),
         TweenSequenceItem(
           tween: Tween<Offset>(
-            begin: const Offset(0, 1),
-            end: const Offset(0, 0),
+            begin: widget.endOffset != null
+                ? Offset(
+                    -widget.endOffset!.dx,
+                    -widget.endOffset!.dy,
+                  )
+                : const Offset(0, 1),
+            end: widget.beginOffset != null
+                ? Offset(
+                    widget.beginOffset!.dx,
+                    widget.beginOffset!.dy,
+                  )
+                : const Offset(0, 0),
           ),
           weight: 50,
         ),
       ]).animate(CurvedAnimation(
         parent: controller,
-        curve: Curves.ease,
+        curve: widget.curve ?? Curves.ease,
       ));
     }).toList();
 
