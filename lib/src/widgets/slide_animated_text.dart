@@ -254,27 +254,29 @@ class _AnimatedTextState extends State<SlideAnimatedText>
         cursor: SystemMouseCursors.click,
         onEnter: (_) => _onHover(true),
         onExit: (_) => _onHover(false),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: widget.value.characters.map((char) {
-            int index = widget.value.characters.toList().indexOf(char);
-            return SlideTransition(
-              position: _animations[index],
-              child: Text(
-                char,
-                style: TextStyle(
-                  color: context.theme.textTheme.bodyMedium!.color,
-                ).merge(
-                  _defaultStyle?.merge(
-                    (_isHovering && widget.styleOnHover != null)
-                        ? widget.style?.merge(widget.styleOnHover) ??
-                            widget.styleOnHover
-                        : widget.style,
+        child: ClipRRect(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: widget.value.characters.map((char) {
+              int index = widget.value.characters.toList().indexOf(char);
+              return SlideTransition(
+                position: _animations[index],
+                child: Text(
+                  char,
+                  style: TextStyle(
+                    color: context.theme.textTheme.bodyMedium!.color,
+                  ).merge(
+                    _defaultStyle?.merge(
+                      (_isHovering && widget.styleOnHover != null)
+                          ? widget.style?.merge(widget.styleOnHover) ??
+                              widget.styleOnHover
+                          : widget.style,
+                    ),
                   ),
                 ),
-              ),
-            );
-          }).toList(),
+              );
+            }).toList(),
+          ),
         ),
       ),
     ).onPressed(widget.onPressed);
