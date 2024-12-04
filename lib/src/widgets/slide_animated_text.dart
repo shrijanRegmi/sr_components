@@ -31,7 +31,8 @@ class SlideAnimatedText extends StatefulWidget {
     this.curve,
     this.beginOffset,
     this.endOffset,
-    this.returnBack = false,
+    this.returnBack = true,
+    this.charAnimationGap,
     this.onPressed,
   }) : type = _Type.displayLarge;
 
@@ -46,7 +47,8 @@ class SlideAnimatedText extends StatefulWidget {
     this.curve,
     this.beginOffset,
     this.endOffset,
-    this.returnBack = false,
+    this.returnBack = true,
+    this.charAnimationGap,
     this.onPressed,
   }) : type = _Type.displayMedium;
 
@@ -61,7 +63,8 @@ class SlideAnimatedText extends StatefulWidget {
     this.curve,
     this.beginOffset,
     this.endOffset,
-    this.returnBack = false,
+    this.returnBack = true,
+    this.charAnimationGap,
     this.onPressed,
   }) : type = _Type.displaySmall;
 
@@ -76,7 +79,8 @@ class SlideAnimatedText extends StatefulWidget {
     this.curve,
     this.beginOffset,
     this.endOffset,
-    this.returnBack = false,
+    this.returnBack = true,
+    this.charAnimationGap,
     this.onPressed,
   }) : type = _Type.headlineLarge;
 
@@ -91,7 +95,8 @@ class SlideAnimatedText extends StatefulWidget {
     this.curve,
     this.beginOffset,
     this.endOffset,
-    this.returnBack = false,
+    this.returnBack = true,
+    this.charAnimationGap,
     this.onPressed,
   }) : type = _Type.headlineMedium;
 
@@ -106,7 +111,8 @@ class SlideAnimatedText extends StatefulWidget {
     this.curve,
     this.beginOffset,
     this.endOffset,
-    this.returnBack = false,
+    this.returnBack = true,
+    this.charAnimationGap,
     this.onPressed,
   }) : type = _Type.headLineSmall;
 
@@ -121,7 +127,8 @@ class SlideAnimatedText extends StatefulWidget {
     this.curve,
     this.beginOffset,
     this.endOffset,
-    this.returnBack = false,
+    this.returnBack = true,
+    this.charAnimationGap,
     this.onPressed,
   }) : type = _Type.titleLarge;
 
@@ -136,7 +143,8 @@ class SlideAnimatedText extends StatefulWidget {
     this.curve,
     this.beginOffset,
     this.endOffset,
-    this.returnBack = false,
+    this.returnBack = true,
+    this.charAnimationGap,
     this.onPressed,
   }) : type = _Type.titleMedium;
 
@@ -151,7 +159,8 @@ class SlideAnimatedText extends StatefulWidget {
     this.curve,
     this.beginOffset,
     this.endOffset,
-    this.returnBack = false,
+    this.returnBack = true,
+    this.charAnimationGap,
     this.onPressed,
   }) : type = _Type.titleSmall;
 
@@ -166,7 +175,8 @@ class SlideAnimatedText extends StatefulWidget {
     this.curve,
     this.beginOffset,
     this.endOffset,
-    this.returnBack = false,
+    this.returnBack = true,
+    this.charAnimationGap,
     this.onPressed,
   }) : type = _Type.bodyLarge;
 
@@ -181,7 +191,8 @@ class SlideAnimatedText extends StatefulWidget {
     this.curve,
     this.beginOffset,
     this.endOffset,
-    this.returnBack = false,
+    this.returnBack = true,
+    this.charAnimationGap,
     this.onPressed,
   }) : type = _Type.bodyMedium;
 
@@ -196,7 +207,8 @@ class SlideAnimatedText extends StatefulWidget {
     this.curve,
     this.beginOffset,
     this.endOffset,
-    this.returnBack = false,
+    this.returnBack = true,
+    this.charAnimationGap,
     this.onPressed,
   }) : type = _Type.bodySmall;
 
@@ -211,7 +223,8 @@ class SlideAnimatedText extends StatefulWidget {
     this.curve,
     this.beginOffset,
     this.endOffset,
-    this.returnBack = false,
+    this.returnBack = true,
+    this.charAnimationGap,
     this.onPressed,
   }) : type = _Type.labelLarge;
 
@@ -226,7 +239,8 @@ class SlideAnimatedText extends StatefulWidget {
     this.curve,
     this.beginOffset,
     this.endOffset,
-    this.returnBack = false,
+    this.returnBack = true,
+    this.charAnimationGap,
     this.onPressed,
   }) : type = _Type.labelMedium;
 
@@ -241,7 +255,8 @@ class SlideAnimatedText extends StatefulWidget {
     this.curve,
     this.beginOffset,
     this.endOffset,
-    this.returnBack = false,
+    this.returnBack = true,
+    this.charAnimationGap,
     this.onPressed,
   }) : type = _Type.labelSmall;
 
@@ -274,6 +289,9 @@ class SlideAnimatedText extends StatefulWidget {
 
   /// Whether the text should return back to the original position after animating.
   final bool returnBack;
+
+  /// The duration in between animating each character.
+  final Duration? charAnimationGap;
 
   /// The callback that is called when the button is pressed.
   final void Function()? onPressed;
@@ -309,23 +327,24 @@ class _AnimatedTextState extends State<SlideAnimatedText>
           ),
           weight: 50,
         ),
-        TweenSequenceItem(
-          tween: Tween<Offset>(
-            begin: widget.endOffset != null
-                ? Offset(
-                    -widget.endOffset!.dx,
-                    -widget.endOffset!.dy,
-                  )
-                : const Offset(0, 1),
-            end: widget.beginOffset != null
-                ? Offset(
-                    widget.beginOffset!.dx,
-                    widget.beginOffset!.dy,
-                  )
-                : const Offset(0, 0),
+        if (widget.returnBack)
+          TweenSequenceItem(
+            tween: Tween<Offset>(
+              begin: widget.endOffset != null
+                  ? Offset(
+                      -widget.endOffset!.dx,
+                      -widget.endOffset!.dy,
+                    )
+                  : const Offset(0, 1),
+              end: widget.beginOffset != null
+                  ? Offset(
+                      widget.beginOffset!.dx,
+                      widget.beginOffset!.dy,
+                    )
+                  : const Offset(0, 0),
+            ),
+            weight: 50,
           ),
-          weight: 50,
-        ),
       ]).animate(CurvedAnimation(
         parent: controller,
         curve: widget.curve ?? Curves.ease,
@@ -346,23 +365,33 @@ class _AnimatedTextState extends State<SlideAnimatedText>
   }
 
   void _onHover(final bool hover) {
-    Future.delayed(const Duration(milliseconds: 300), () {
-      if (mounted) {
-        setState(() {
-          _isHovering = hover;
-        });
-      }
-    });
-    for (int i = 0; i < _controllers.length; i++) {
-      Future.delayed(Duration(milliseconds: i * 35), () {
+    Future.delayed(
+      Duration(
+        milliseconds: widget.animationDuration != null
+            ? (widget.animationDuration!.inMilliseconds ~/ 2)
+            : 300,
+      ),
+      () {
         if (mounted) {
-          if (hover) {
-            _controllers[i].forward();
-          } else {
-            _controllers[i].reverse();
-          }
+          setState(() {
+            _isHovering = hover;
+          });
         }
-      });
+      },
+    );
+    for (int i = 0; i < _controllers.length; i++) {
+      Future.delayed(
+        widget.charAnimationGap ?? Duration(milliseconds: i * 35),
+        () {
+          if (mounted) {
+            if (hover) {
+              _controllers[i].forward();
+            } else {
+              _controllers[i].reverse();
+            }
+          }
+        },
+      );
     }
   }
 
