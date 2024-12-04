@@ -277,7 +277,7 @@ class _AnimatedTextState extends State<SlideAnimatedText>
           }).toList(),
         ),
       ),
-    );
+    ).onPressed(widget.onPressed);
   }
 
   void _chooseDefaultStyle() {
