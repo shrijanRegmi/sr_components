@@ -20,7 +20,7 @@ enum _Type {
 }
 
 class SlideAnimatedText extends StatefulWidget {
-  /// Displays a text which when hovered animates.
+  /// Displays a text with style of displayLarge which when hovered animates.
   const SlideAnimatedText.displayLarge(
     this.value, {
     super.key,
@@ -28,6 +28,132 @@ class SlideAnimatedText extends StatefulWidget {
     this.styleOnHover,
     this.onPressed,
   }) : type = _Type.displayLarge;
+
+  /// Displays a text with style of displayMedium which when hovered animates.
+  const SlideAnimatedText.displayMedium(
+    this.value, {
+    super.key,
+    this.style,
+    this.styleOnHover,
+    this.onPressed,
+  }) : type = _Type.displayMedium;
+
+  /// Displays a text with style of displaySmall which when hovered animates.
+  const SlideAnimatedText.displaySmall(
+    this.value, {
+    super.key,
+    this.style,
+    this.styleOnHover,
+    this.onPressed,
+  }) : type = _Type.displaySmall;
+
+  /// Displays a text with style of headlineLarge which when hovered animates.
+  const SlideAnimatedText.headlineLarge(
+    this.value, {
+    super.key,
+    this.style,
+    this.styleOnHover,
+    this.onPressed,
+  }) : type = _Type.headlineLarge;
+
+  /// Displays a text with style of headlineMedium which when hovered animates.
+  const SlideAnimatedText.headlineMedium(
+    this.value, {
+    super.key,
+    this.style,
+    this.styleOnHover,
+    this.onPressed,
+  }) : type = _Type.headlineMedium;
+
+  /// Displays a text with style of headLineSmall which when hovered animates.
+  const SlideAnimatedText.headLineSmall(
+    this.value, {
+    super.key,
+    this.style,
+    this.styleOnHover,
+    this.onPressed,
+  }) : type = _Type.headLineSmall;
+
+  /// Displays a text with style of titleLarge which when hovered animates.
+  const SlideAnimatedText.titleLarge(
+    this.value, {
+    super.key,
+    this.style,
+    this.styleOnHover,
+    this.onPressed,
+  }) : type = _Type.titleLarge;
+
+  /// Displays a text with style of titleMedium which when hovered animates.
+  const SlideAnimatedText.titleMedium(
+    this.value, {
+    super.key,
+    this.style,
+    this.styleOnHover,
+    this.onPressed,
+  }) : type = _Type.titleMedium;
+
+  /// Displays a text with style of titleSmall which when hovered animates.
+  const SlideAnimatedText.titleSmall(
+    this.value, {
+    super.key,
+    this.style,
+    this.styleOnHover,
+    this.onPressed,
+  }) : type = _Type.titleSmall;
+
+  /// Displays a text with style of bodyLarge which when hovered animates.
+  const SlideAnimatedText.bodyLarge(
+    this.value, {
+    super.key,
+    this.style,
+    this.styleOnHover,
+    this.onPressed,
+  }) : type = _Type.bodyLarge;
+
+  /// Displays a text with style of bodyMedium which when hovered animates.
+  const SlideAnimatedText.bodyMedium(
+    this.value, {
+    super.key,
+    this.style,
+    this.styleOnHover,
+    this.onPressed,
+  }) : type = _Type.bodyMedium;
+
+  /// Displays a text with style of bodySmall which when hovered animates.
+  const SlideAnimatedText.bodySmall(
+    this.value, {
+    super.key,
+    this.style,
+    this.styleOnHover,
+    this.onPressed,
+  }) : type = _Type.bodySmall;
+
+  /// Displays a text with style of labelLarge which when hovered animates.
+  const SlideAnimatedText.labelLarge(
+    this.value, {
+    super.key,
+    this.style,
+    this.styleOnHover,
+    this.onPressed,
+  }) : type = _Type.labelLarge;
+
+  /// Displays a text with style of labelMedium which when hovered animates.
+  const SlideAnimatedText.labelMedium(
+    this.value, {
+    super.key,
+    this.style,
+    this.styleOnHover,
+    this.onPressed,
+  }) : type = _Type.labelMedium;
+
+  /// Displays a text with style of labelSmall which when hovered animates.
+  const SlideAnimatedText.labelSmall(
+    this.value, {
+    super.key,
+    this.style,
+    this.styleOnHover,
+    this.onPressed,
+  }) : type = _Type.labelSmall;
 
   /// The type of the text.
   final _Type type;
@@ -141,7 +267,8 @@ class _AnimatedTextState extends State<SlideAnimatedText>
                 ).merge(
                   _defaultStyle?.merge(
                     (_isHovering && widget.styleOnHover != null)
-                        ? widget.styleOnHover
+                        ? widget.style?.merge(widget.styleOnHover) ??
+                            widget.styleOnHover
                         : widget.style,
                   ),
                 ),
