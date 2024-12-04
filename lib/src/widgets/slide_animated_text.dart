@@ -381,7 +381,9 @@ class _AnimatedTextState extends State<SlideAnimatedText>
     );
     for (int i = 0; i < _controllers.length; i++) {
       Future.delayed(
-        widget.charAnimationGap ?? Duration(milliseconds: i * 35),
+        Duration(
+          milliseconds: i * (widget.charAnimationGap?.inMilliseconds ?? 35),
+        ),
         () {
           if (mounted) {
             if (hover) {
