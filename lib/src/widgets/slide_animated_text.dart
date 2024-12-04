@@ -28,6 +28,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.styleOnHover,
     this.autoStartAnimation = false,
     this.animationDuration,
+    this.animationDelay,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -44,6 +45,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.styleOnHover,
     this.autoStartAnimation = false,
     this.animationDuration,
+    this.animationDelay,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -60,6 +62,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.styleOnHover,
     this.autoStartAnimation = false,
     this.animationDuration,
+    this.animationDelay,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -76,6 +79,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.styleOnHover,
     this.autoStartAnimation = false,
     this.animationDuration,
+    this.animationDelay,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -92,6 +96,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.styleOnHover,
     this.autoStartAnimation = false,
     this.animationDuration,
+    this.animationDelay,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -108,6 +113,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.styleOnHover,
     this.autoStartAnimation = false,
     this.animationDuration,
+    this.animationDelay,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -124,6 +130,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.styleOnHover,
     this.autoStartAnimation = false,
     this.animationDuration,
+    this.animationDelay,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -140,6 +147,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.styleOnHover,
     this.autoStartAnimation = false,
     this.animationDuration,
+    this.animationDelay,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -156,6 +164,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.styleOnHover,
     this.autoStartAnimation = false,
     this.animationDuration,
+    this.animationDelay,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -172,6 +181,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.styleOnHover,
     this.autoStartAnimation = false,
     this.animationDuration,
+    this.animationDelay,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -188,6 +198,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.styleOnHover,
     this.autoStartAnimation = false,
     this.animationDuration,
+    this.animationDelay,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -204,6 +215,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.styleOnHover,
     this.autoStartAnimation = false,
     this.animationDuration,
+    this.animationDelay,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -220,6 +232,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.styleOnHover,
     this.autoStartAnimation = false,
     this.animationDuration,
+    this.animationDelay,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -236,6 +249,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.styleOnHover,
     this.autoStartAnimation = false,
     this.animationDuration,
+    this.animationDelay,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -252,6 +266,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.styleOnHover,
     this.autoStartAnimation = false,
     this.animationDuration,
+    this.animationDelay,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -277,6 +292,9 @@ class SlideAnimatedText extends StatefulWidget {
 
   /// The duration of the animation.
   final Duration? animationDuration;
+
+  /// The duration of the animation.
+  final Duration? animationDelay;
 
   /// The curve of the animation.
   final Curve? curve;
@@ -365,36 +383,40 @@ class _AnimatedTextState extends State<SlideAnimatedText>
   }
 
   void _onHover(final bool hover) {
-    Future.delayed(
-      Duration(
-        milliseconds: widget.animationDuration != null
-            ? (widget.animationDuration!.inMilliseconds ~/ 2)
-            : 300,
-      ),
-      () {
-        if (mounted) {
-          setState(() {
-            _isHovering = hover;
-          });
-        }
-      },
-    );
-    for (int i = 0; i < _controllers.length; i++) {
-      Future.delayed(
-        Duration(
-          milliseconds: i * (widget.charAnimationGap?.inMilliseconds ?? 35),
-        ),
-        () {
-          if (mounted) {
-            if (hover) {
-              _controllers[i].forward();
-            } else {
-              _controllers[i].reverse();
+    Future.delayed(widget.animationDelay ?? Duration.zero, () {
+      if (mounted) {
+        Future.delayed(
+          Duration(
+            milliseconds: widget.animationDuration != null
+                ? (widget.animationDuration!.inMilliseconds ~/ 2)
+                : 300,
+          ),
+          () {
+            if (mounted) {
+              setState(() {
+                _isHovering = hover;
+              });
             }
-          }
-        },
-      );
-    }
+          },
+        );
+        for (int i = 0; i < _controllers.length; i++) {
+          Future.delayed(
+            Duration(
+              milliseconds: i * (widget.charAnimationGap?.inMilliseconds ?? 35),
+            ),
+            () {
+              if (mounted) {
+                if (hover) {
+                  _controllers[i].forward();
+                } else {
+                  _controllers[i].reverse();
+                }
+              }
+            },
+          );
+        }
+      }
+    });
   }
 
   @override
