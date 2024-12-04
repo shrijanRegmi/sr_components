@@ -3,6 +3,7 @@ export 'package:cached_network_image/cached_network_image.dart';
 export 'package:flutter_svg/flutter_svg.dart';
 
 export './src/widgets/text.dart';
+export './src/widgets/slide_animated_text.dart';
 export './src/widgets/button.dart';
 export './src/widgets/input.dart';
 export './src/widgets/avatar.dart';
