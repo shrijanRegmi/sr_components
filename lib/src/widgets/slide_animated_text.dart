@@ -26,6 +26,7 @@ class SlideAnimatedText extends StatefulWidget {
     super.key,
     this.style,
     this.styleOnHover,
+    this.autoStartAnimation = false,
     this.onPressed,
   }) : type = _Type.displayLarge;
 
@@ -35,6 +36,7 @@ class SlideAnimatedText extends StatefulWidget {
     super.key,
     this.style,
     this.styleOnHover,
+    this.autoStartAnimation = false,
     this.onPressed,
   }) : type = _Type.displayMedium;
 
@@ -44,6 +46,7 @@ class SlideAnimatedText extends StatefulWidget {
     super.key,
     this.style,
     this.styleOnHover,
+    this.autoStartAnimation = false,
     this.onPressed,
   }) : type = _Type.displaySmall;
 
@@ -53,6 +56,7 @@ class SlideAnimatedText extends StatefulWidget {
     super.key,
     this.style,
     this.styleOnHover,
+    this.autoStartAnimation = false,
     this.onPressed,
   }) : type = _Type.headlineLarge;
 
@@ -62,6 +66,7 @@ class SlideAnimatedText extends StatefulWidget {
     super.key,
     this.style,
     this.styleOnHover,
+    this.autoStartAnimation = false,
     this.onPressed,
   }) : type = _Type.headlineMedium;
 
@@ -71,6 +76,7 @@ class SlideAnimatedText extends StatefulWidget {
     super.key,
     this.style,
     this.styleOnHover,
+    this.autoStartAnimation = false,
     this.onPressed,
   }) : type = _Type.headLineSmall;
 
@@ -80,6 +86,7 @@ class SlideAnimatedText extends StatefulWidget {
     super.key,
     this.style,
     this.styleOnHover,
+    this.autoStartAnimation = false,
     this.onPressed,
   }) : type = _Type.titleLarge;
 
@@ -89,6 +96,7 @@ class SlideAnimatedText extends StatefulWidget {
     super.key,
     this.style,
     this.styleOnHover,
+    this.autoStartAnimation = false,
     this.onPressed,
   }) : type = _Type.titleMedium;
 
@@ -98,6 +106,7 @@ class SlideAnimatedText extends StatefulWidget {
     super.key,
     this.style,
     this.styleOnHover,
+    this.autoStartAnimation = false,
     this.onPressed,
   }) : type = _Type.titleSmall;
 
@@ -107,6 +116,7 @@ class SlideAnimatedText extends StatefulWidget {
     super.key,
     this.style,
     this.styleOnHover,
+    this.autoStartAnimation = false,
     this.onPressed,
   }) : type = _Type.bodyLarge;
 
@@ -116,6 +126,7 @@ class SlideAnimatedText extends StatefulWidget {
     super.key,
     this.style,
     this.styleOnHover,
+    this.autoStartAnimation = false,
     this.onPressed,
   }) : type = _Type.bodyMedium;
 
@@ -125,6 +136,7 @@ class SlideAnimatedText extends StatefulWidget {
     super.key,
     this.style,
     this.styleOnHover,
+    this.autoStartAnimation = false,
     this.onPressed,
   }) : type = _Type.bodySmall;
 
@@ -134,6 +146,7 @@ class SlideAnimatedText extends StatefulWidget {
     super.key,
     this.style,
     this.styleOnHover,
+    this.autoStartAnimation = false,
     this.onPressed,
   }) : type = _Type.labelLarge;
 
@@ -143,6 +156,7 @@ class SlideAnimatedText extends StatefulWidget {
     super.key,
     this.style,
     this.styleOnHover,
+    this.autoStartAnimation = false,
     this.onPressed,
   }) : type = _Type.labelMedium;
 
@@ -152,6 +166,7 @@ class SlideAnimatedText extends StatefulWidget {
     super.key,
     this.style,
     this.styleOnHover,
+    this.autoStartAnimation = false,
     this.onPressed,
   }) : type = _Type.labelSmall;
 
@@ -166,6 +181,9 @@ class SlideAnimatedText extends StatefulWidget {
 
   /// The style of the text when it is hovered.
   final TextStyle? styleOnHover;
+
+  /// Whether to wait for the user to hover or auto start the animation.
+  final bool autoStartAnimation;
 
   /// The callback that is called when the button is pressed.
   final void Function()? onPressed;
@@ -213,6 +231,10 @@ class _AnimatedTextState extends State<SlideAnimatedText>
         curve: Curves.ease,
       ));
     }).toList();
+
+    if (widget.autoStartAnimation) {
+      _onHover(true);
+    }
   }
 
   @override
