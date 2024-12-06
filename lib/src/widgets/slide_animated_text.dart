@@ -419,7 +419,7 @@ class _AnimatedTextState extends State<SlideAnimatedText>
             }
           },
         );
-        for (int i = 0; i < _controllers.length; i++) {
+        for (var i = 0; i < _controllers.length; i++) {
           Future.delayed(
             Duration(
               milliseconds: i * (widget.charAnimationGap?.inMilliseconds ?? 35),
@@ -452,12 +452,11 @@ class _AnimatedTextState extends State<SlideAnimatedText>
         child: ClipRRect(
           child: Row(
             mainAxisSize: MainAxisSize.min,
-            children: widget.value.characters.map((char) {
-              int index = widget.value.characters.toList().indexOf(char);
+            children: widget.value.characters.indexed.map((char) {
               return SlideTransition(
-                position: _animations[index],
+                position: _animations[char.$1],
                 child: Text(
-                  char,
+                  char.$2,
                   style: TextStyle(
                     color: context.theme.textTheme.bodyMedium!.color,
                   ).merge(
