@@ -29,6 +29,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.autoStartAnimation = false,
     this.animationDuration,
     this.animationDelay,
+    this.tweenSequenceItems,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -46,6 +47,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.autoStartAnimation = false,
     this.animationDuration,
     this.animationDelay,
+    this.tweenSequenceItems,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -63,6 +65,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.autoStartAnimation = false,
     this.animationDuration,
     this.animationDelay,
+    this.tweenSequenceItems,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -80,6 +83,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.autoStartAnimation = false,
     this.animationDuration,
     this.animationDelay,
+    this.tweenSequenceItems,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -97,6 +101,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.autoStartAnimation = false,
     this.animationDuration,
     this.animationDelay,
+    this.tweenSequenceItems,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -114,6 +119,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.autoStartAnimation = false,
     this.animationDuration,
     this.animationDelay,
+    this.tweenSequenceItems,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -131,6 +137,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.autoStartAnimation = false,
     this.animationDuration,
     this.animationDelay,
+    this.tweenSequenceItems,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -148,6 +155,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.autoStartAnimation = false,
     this.animationDuration,
     this.animationDelay,
+    this.tweenSequenceItems,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -165,6 +173,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.autoStartAnimation = false,
     this.animationDuration,
     this.animationDelay,
+    this.tweenSequenceItems,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -182,6 +191,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.autoStartAnimation = false,
     this.animationDuration,
     this.animationDelay,
+    this.tweenSequenceItems,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -199,6 +209,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.autoStartAnimation = false,
     this.animationDuration,
     this.animationDelay,
+    this.tweenSequenceItems,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -216,6 +227,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.autoStartAnimation = false,
     this.animationDuration,
     this.animationDelay,
+    this.tweenSequenceItems,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -233,6 +245,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.autoStartAnimation = false,
     this.animationDuration,
     this.animationDelay,
+    this.tweenSequenceItems,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -250,6 +263,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.autoStartAnimation = false,
     this.animationDuration,
     this.animationDelay,
+    this.tweenSequenceItems,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -267,6 +281,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.autoStartAnimation = false,
     this.animationDuration,
     this.animationDelay,
+    this.tweenSequenceItems,
     this.curve,
     this.beginOffset,
     this.endOffset,
@@ -295,6 +310,8 @@ class SlideAnimatedText extends StatefulWidget {
 
   /// The duration of the animation.
   final Duration? animationDelay;
+
+  final List<TweenSequenceItem<Offset>>? tweenSequenceItems;
 
   /// The curve of the animation.
   final Curve? curve;
@@ -337,33 +354,36 @@ class _AnimatedTextState extends State<SlideAnimatedText>
     });
 
     _animations = _controllers.map((controller) {
-      return TweenSequence<Offset>([
-        TweenSequenceItem(
-          tween: Tween<Offset>(
-            begin: widget.beginOffset ?? const Offset(0, 0),
-            end: widget.endOffset ?? const Offset(0, -1),
-          ),
-          weight: 50,
-        ),
-        if (widget.returnBack)
-          TweenSequenceItem(
-            tween: Tween<Offset>(
-              begin: widget.endOffset != null
-                  ? Offset(
-                      -widget.endOffset!.dx,
-                      -widget.endOffset!.dy,
-                    )
-                  : const Offset(0, 1),
-              end: widget.beginOffset != null
-                  ? Offset(
-                      widget.beginOffset!.dx,
-                      widget.beginOffset!.dy,
-                    )
-                  : const Offset(0, 0),
-            ),
-            weight: 50,
-          ),
-      ]).animate(CurvedAnimation(
+      return TweenSequence<Offset>(
+        widget.tweenSequenceItems ??
+            [
+              TweenSequenceItem(
+                tween: Tween<Offset>(
+                  begin: widget.beginOffset ?? const Offset(0, 0),
+                  end: widget.endOffset ?? const Offset(0, -1),
+                ),
+                weight: 50,
+              ),
+              if (widget.returnBack)
+                TweenSequenceItem(
+                  tween: Tween<Offset>(
+                    begin: widget.endOffset != null
+                        ? Offset(
+                            -widget.endOffset!.dx,
+                            -widget.endOffset!.dy,
+                          )
+                        : const Offset(0, 1),
+                    end: widget.beginOffset != null
+                        ? Offset(
+                            widget.beginOffset!.dx,
+                            widget.beginOffset!.dy,
+                          )
+                        : const Offset(0, 0),
+                  ),
+                  weight: 50,
+                ),
+            ],
+      ).animate(CurvedAnimation(
         parent: controller,
         curve: widget.curve ?? Curves.ease,
       ));
