@@ -497,7 +497,7 @@ class _AnimatedTextState extends State<SlideAnimatedText>
               style: textStyle,
             ),
             style: const TextStyle(
-              wordSpacing: 100,
+              wordSpacing: 500,
             ),
           ),
         ),
