@@ -487,7 +487,10 @@ class _AnimatedTextState extends State<SlideAnimatedText>
                 return WidgetSpan(
                   child: SlideTransition(
                     position: _animations[char.$1],
-                    child: Text(char.$2),
+                    child: Text(
+                      char.$2,
+                      style: textStyle,
+                    ),
                   ),
                 );
               }).toList(),
