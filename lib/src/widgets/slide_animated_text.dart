@@ -467,7 +467,8 @@ class _AnimatedTextState extends State<SlideAnimatedText>
                   mainAxisSize: MainAxisSize.min,
                   children: word.characters.indexed.map((char) {
                     return SlideTransition(
-                      position: _animations[char.$1],
+                      position:
+                          _animations[widget.value.indexOf(word) + char.$1],
                       child: Text(
                         char.$2,
                         style: textStyle,
