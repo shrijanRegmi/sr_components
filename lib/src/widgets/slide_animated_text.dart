@@ -461,26 +461,38 @@ class _AnimatedTextState extends State<SlideAnimatedText>
         onEnter: (_) => _onHover(true),
         onExit: (_) => _onHover(false),
         child: ClipRRect(
-          child: Row(
+          child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: widget.value.split(' ').expand((word) {
-              return <Widget>[
+            children: widget.value.split('\n').expand((breaks) {
+              return [
                 Row(
                   mainAxisSize: MainAxisSize.min,
-                  children: word.characters.indexed.map((char) {
-                    return SlideTransition(
-                      position:
-                          _animations[widget.value.indexOf(word) + char.$1],
-                      child: Text(
-                        char.$2,
-                        style: textStyle,
+                  children: breaks.split(' ').expand((word) {
+                    return <Widget>[
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: word.characters.indexed.map((char) {
+                          return SlideTransition(
+                            position: _animations[widget.value.indexOf(breaks) +
+                                breaks.indexOf(word) +
+                                char.$1],
+                            child: Text(
+                              char.$2,
+                              style: textStyle,
+                            ),
+                          );
+                        }).toList(),
                       ),
-                    );
+                      if (word != breaks.split(' ').last)
+                        SizedBox(
+                          width: textStyle.wordSpacing?.abs() ?? 3.spMin,
+                        ),
+                    ];
                   }).toList(),
                 ),
-                if (word != widget.value.split(' ').last)
+                if (breaks != widget.value.split('\n').last)
                   SizedBox(
-                    width: textStyle.wordSpacing?.abs() ?? 2.spMin,
+                    height: textStyle.height?.abs(),
                   ),
               ];
             }).toList(),
