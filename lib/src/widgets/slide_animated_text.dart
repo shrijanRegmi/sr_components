@@ -465,8 +465,9 @@ class _AnimatedTextState extends State<SlideAnimatedText>
             mainAxisSize: MainAxisSize.min,
             children: widget.value.split('\n').expand((breaks) {
               return [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
+                Wrap(
+                  spacing: textStyle.wordSpacing?.abs() ?? 3.spMin,
+                  runSpacing: textStyle.height?.abs() ?? 8.0,
                   children: breaks.split(' ').expand((word) {
                     return <Widget>[
                       Row(
@@ -483,10 +484,6 @@ class _AnimatedTextState extends State<SlideAnimatedText>
                           );
                         }).toList(),
                       ),
-                      if (word != breaks.split(' ').last)
-                        SizedBox(
-                          width: textStyle.wordSpacing?.abs() ?? 3.spMin,
-                        ),
                     ];
                   }).toList(),
                 ),
