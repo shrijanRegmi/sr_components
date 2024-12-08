@@ -450,27 +450,49 @@ class _AnimatedTextState extends State<SlideAnimatedText>
         onEnter: (_) => _onHover(true),
         onExit: (_) => _onHover(false),
         child: ClipRRect(
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: widget.value.characters.indexed.map((char) {
-              return SlideTransition(
-                position: _animations[char.$1],
-                child: Text(
-                  char.$2,
-                  style: TextStyle(
-                    color: context.theme.textTheme.bodyMedium!.color,
-                  ).merge(
-                    _defaultStyle?.merge(
-                      (_isHovering && widget.styleOnHover != null)
-                          ? widget.style?.merge(widget.styleOnHover) ??
-                              widget.styleOnHover
-                          : widget.style,
-                    ),
+          // child: Row(
+          //   mainAxisSize: MainAxisSize.min,
+          //   children: widget.value.characters.indexed.map((char) {
+          //     return SlideTransition(
+          //       position: _animations[char.$1],
+          //       child: Text(
+          //         char.$2,
+          //         style: TextStyle(
+          //           color: context.theme.textTheme.bodyMedium!.color,
+          //         ).merge(
+          //           _defaultStyle?.merge(
+          //             (_isHovering && widget.styleOnHover != null)
+          //                 ? widget.style?.merge(widget.styleOnHover) ??
+          //                     widget.styleOnHover
+          //                 : widget.style,
+          //           ),
+          //         ),
+          //       ),
+          //     );
+          //   }).toList(),
+          // ).pL(3.0),
+          child: Text.rich(
+            TextSpan(
+              children: widget.value.characters.indexed.map((char) {
+                return WidgetSpan(
+                  child: SlideTransition(
+                    position: _animations[char.$1],
+                    child: Text(char.$2),
                   ),
+                );
+              }).toList(),
+              style: TextStyle(
+                color: context.theme.textTheme.bodyMedium!.color,
+              ).merge(
+                _defaultStyle?.merge(
+                  (_isHovering && widget.styleOnHover != null)
+                      ? widget.style?.merge(widget.styleOnHover) ??
+                          widget.styleOnHover
+                      : widget.style,
                 ),
-              );
-            }).toList(),
-          ).pL(3.0),
+              ),
+            ),
+          ),
         ),
       ),
     ).onPressed(widget.onPressed);
