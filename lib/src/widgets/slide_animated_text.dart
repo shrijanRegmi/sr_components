@@ -443,16 +443,6 @@ class _AnimatedTextState extends State<SlideAnimatedText>
   Widget build(BuildContext context) {
     _chooseDefaultStyle();
 
-    final textStyle = TextStyle(
-      color: context.theme.textTheme.bodyMedium!.color,
-    ).merge(
-      _defaultStyle?.merge(
-        (_isHovering && widget.styleOnHover != null)
-            ? widget.style?.merge(widget.styleOnHover) ?? widget.styleOnHover
-            : widget.style,
-      ),
-    );
-
     return Material(
       color: Colors.transparent,
       child: MouseRegion(
@@ -460,45 +450,34 @@ class _AnimatedTextState extends State<SlideAnimatedText>
         onEnter: (_) => _onHover(true),
         onExit: (_) => _onHover(false),
         child: ClipRRect(
-          // child: Row(
-          //   mainAxisSize: MainAxisSize.min,
-          //   children: widget.value.characters.indexed.map((char) {
-          //     return SlideTransition(
-          //       position: _animations[char.$1],
-          //       child: Text(
-          //         char.$2,
-          //         style: TextStyle(
-          //           color: context.theme.textTheme.bodyMedium!.color,
-          //         ).merge(
-          //           _defaultStyle?.merge(
-          //             (_isHovering && widget.styleOnHover != null)
-          //                 ? widget.style?.merge(widget.styleOnHover) ??
-          //                     widget.styleOnHover
-          //                 : widget.style,
-          //           ),
-          //         ),
-          //       ),
-          //     );
-          //   }).toList(),
-          // ).pL(3.0),
-          child: Text.rich(
-            TextSpan(
-              children: widget.value.characters.indexed.map((char) {
-                return WidgetSpan(
-                  child: SlideTransition(
-                    position: _animations[char.$1],
-                    child: Text(
-                      char.$2,
-                      style: textStyle,
-                    ),
-                  ),
-                );
-              }).toList(),
-              style: textStyle,
-            ),
-            style: const TextStyle(
-              wordSpacing: 500,
-            ),
+          child: Row(
+            children: widget.value.split(' ').expand((word) {
+              return <Widget>[
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: word.characters.indexed.map((char) {
+                    return SlideTransition(
+                      position: _animations[char.$1],
+                      child: Text(
+                        char.$2,
+                        style: TextStyle(
+                          color: context.theme.textTheme.bodyMedium!.color,
+                        ).merge(
+                          _defaultStyle?.merge(
+                            (_isHovering && widget.styleOnHover != null)
+                                ? widget.style?.merge(widget.styleOnHover) ??
+                                    widget.styleOnHover
+                                : widget.style,
+                          ),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                if (word != widget.value.split(' ').last)
+                  SizedBox(width: -10.spMax),
+              ];
+            }).toList(),
           ),
         ),
       ),
