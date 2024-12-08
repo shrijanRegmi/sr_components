@@ -476,7 +476,7 @@ class _AnimatedTextState extends State<SlideAnimatedText>
       color: Colors.transparent,
       child: MouseRegion(
         cursor: widget.disableAnimationOnHover
-            ? MouseCursor.defer
+            ? SystemMouseCursors.basic
             : SystemMouseCursors.click,
         onEnter: (_) {
           if (widget.disableAnimationOnHover) return;
