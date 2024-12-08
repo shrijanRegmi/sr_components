@@ -35,6 +35,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.endOffset,
     this.returnBack = true,
     this.charAnimationGap,
+    this.disableAnimationOnHover = false,
     this.onPressed,
   }) : type = _Type.displayLarge;
 
@@ -53,6 +54,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.endOffset,
     this.returnBack = true,
     this.charAnimationGap,
+    this.disableAnimationOnHover = false,
     this.onPressed,
   }) : type = _Type.displayMedium;
 
@@ -71,6 +73,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.endOffset,
     this.returnBack = true,
     this.charAnimationGap,
+    this.disableAnimationOnHover = false,
     this.onPressed,
   }) : type = _Type.displaySmall;
 
@@ -89,6 +92,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.endOffset,
     this.returnBack = true,
     this.charAnimationGap,
+    this.disableAnimationOnHover = false,
     this.onPressed,
   }) : type = _Type.headlineLarge;
 
@@ -107,6 +111,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.endOffset,
     this.returnBack = true,
     this.charAnimationGap,
+    this.disableAnimationOnHover = false,
     this.onPressed,
   }) : type = _Type.headlineMedium;
 
@@ -125,6 +130,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.endOffset,
     this.returnBack = true,
     this.charAnimationGap,
+    this.disableAnimationOnHover = false,
     this.onPressed,
   }) : type = _Type.headLineSmall;
 
@@ -143,6 +149,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.endOffset,
     this.returnBack = true,
     this.charAnimationGap,
+    this.disableAnimationOnHover = false,
     this.onPressed,
   }) : type = _Type.titleLarge;
 
@@ -161,6 +168,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.endOffset,
     this.returnBack = true,
     this.charAnimationGap,
+    this.disableAnimationOnHover = false,
     this.onPressed,
   }) : type = _Type.titleMedium;
 
@@ -179,6 +187,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.endOffset,
     this.returnBack = true,
     this.charAnimationGap,
+    this.disableAnimationOnHover = false,
     this.onPressed,
   }) : type = _Type.titleSmall;
 
@@ -197,6 +206,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.endOffset,
     this.returnBack = true,
     this.charAnimationGap,
+    this.disableAnimationOnHover = false,
     this.onPressed,
   }) : type = _Type.bodyLarge;
 
@@ -215,6 +225,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.endOffset,
     this.returnBack = true,
     this.charAnimationGap,
+    this.disableAnimationOnHover = false,
     this.onPressed,
   }) : type = _Type.bodyMedium;
 
@@ -233,6 +244,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.endOffset,
     this.returnBack = true,
     this.charAnimationGap,
+    this.disableAnimationOnHover = false,
     this.onPressed,
   }) : type = _Type.bodySmall;
 
@@ -251,6 +263,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.endOffset,
     this.returnBack = true,
     this.charAnimationGap,
+    this.disableAnimationOnHover = false,
     this.onPressed,
   }) : type = _Type.labelLarge;
 
@@ -269,6 +282,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.endOffset,
     this.returnBack = true,
     this.charAnimationGap,
+    this.disableAnimationOnHover = false,
     this.onPressed,
   }) : type = _Type.labelMedium;
 
@@ -287,6 +301,7 @@ class SlideAnimatedText extends StatefulWidget {
     this.endOffset,
     this.returnBack = true,
     this.charAnimationGap,
+    this.disableAnimationOnHover = false,
     this.onPressed,
   }) : type = _Type.labelSmall;
 
@@ -327,6 +342,9 @@ class SlideAnimatedText extends StatefulWidget {
 
   /// The duration in between animating each character.
   final Duration? charAnimationGap;
+
+  /// Whether to disable the animation when hovering.
+  final bool disableAnimationOnHover;
 
   /// The callback that is called when the button is pressed.
   final void Function()? onPressed;
@@ -458,8 +476,14 @@ class _AnimatedTextState extends State<SlideAnimatedText>
       color: Colors.transparent,
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
-        onEnter: (_) => _onHover(true),
-        onExit: (_) => _onHover(false),
+        onEnter: (_) {
+          if (widget.disableAnimationOnHover) return;
+          _onHover(true);
+        },
+        onExit: (_) {
+          if (widget.disableAnimationOnHover) return;
+          _onHover(false);
+        },
         child: ClipRRect(
           child: Column(
             mainAxisSize: MainAxisSize.min,
