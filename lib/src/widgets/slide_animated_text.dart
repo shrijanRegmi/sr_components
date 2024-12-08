@@ -475,7 +475,9 @@ class _AnimatedTextState extends State<SlideAnimatedText>
                   }).toList(),
                 ),
                 if (word != widget.value.split(' ').last)
-                  SizedBox(width: 10.spMax),
+                  Padding(
+                    padding: EdgeInsets.only(right: -10.spMax),
+                  ),
               ];
             }).toList(),
           ),
