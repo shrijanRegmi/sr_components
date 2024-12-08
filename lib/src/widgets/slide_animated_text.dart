@@ -475,10 +475,7 @@ class _AnimatedTextState extends State<SlideAnimatedText>
                   }).toList(),
                 ),
                 if (word != widget.value.split(' ').last)
-                  Transform.translate(
-                    offset: Offset(-10.spMax, 0),
-                    child: const SizedBox(width: 0),
-                  ),
+                  SizedBox(width: 10.spMax),
               ];
             }).toList(),
           ),
