@@ -443,6 +443,16 @@ class _AnimatedTextState extends State<SlideAnimatedText>
   Widget build(BuildContext context) {
     _chooseDefaultStyle();
 
+    final textStyle = TextStyle(
+      color: context.theme.textTheme.bodyMedium!.color,
+    ).merge(
+      _defaultStyle?.merge(
+        (_isHovering && widget.styleOnHover != null)
+            ? widget.style?.merge(widget.styleOnHover) ?? widget.styleOnHover
+            : widget.style,
+      ),
+    );
+
     return Material(
       color: Colors.transparent,
       child: MouseRegion(
@@ -460,23 +470,14 @@ class _AnimatedTextState extends State<SlideAnimatedText>
                       position: _animations[char.$1],
                       child: Text(
                         char.$2,
-                        style: TextStyle(
-                          color: context.theme.textTheme.bodyMedium!.color,
-                        ).merge(
-                          _defaultStyle?.merge(
-                            (_isHovering && widget.styleOnHover != null)
-                                ? widget.style?.merge(widget.styleOnHover) ??
-                                    widget.styleOnHover
-                                : widget.style,
-                          ),
-                        ),
+                        style: textStyle,
                       ),
                     );
                   }).toList(),
                 ),
                 if (word != widget.value.split(' ').last)
-                  Padding(
-                    padding: EdgeInsets.only(right: -10.spMax),
+                  SizedBox(
+                    width: textStyle.wordSpacing?.abs(),
                   ),
               ];
             }).toList(),
