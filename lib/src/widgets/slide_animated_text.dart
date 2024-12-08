@@ -461,6 +461,7 @@ class _AnimatedTextState extends State<SlideAnimatedText>
         onExit: (_) => _onHover(false),
         child: ClipRRect(
           child: Row(
+            mainAxisSize: MainAxisSize.min,
             children: widget.value.split(' ').expand((word) {
               return <Widget>[
                 Row(
