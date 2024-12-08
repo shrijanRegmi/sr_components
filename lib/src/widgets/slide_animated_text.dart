@@ -445,7 +445,6 @@ class _AnimatedTextState extends State<SlideAnimatedText>
 
     final textStyle = TextStyle(
       color: context.theme.textTheme.bodyMedium!.color,
-      wordSpacing: 100.0,
     ).merge(
       _defaultStyle?.merge(
         (_isHovering && widget.styleOnHover != null)
@@ -497,7 +496,9 @@ class _AnimatedTextState extends State<SlideAnimatedText>
               }).toList(),
               style: textStyle,
             ),
-            style: textStyle,
+            style: const TextStyle(
+              wordSpacing: 100,
+            ),
           ),
         ),
       ),
