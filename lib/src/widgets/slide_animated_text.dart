@@ -480,7 +480,7 @@ class _AnimatedTextState extends State<SlideAnimatedText>
                 ),
                 if (word != widget.value.split(' ').last)
                   SizedBox(
-                    width: textStyle.wordSpacing?.abs(),
+                    width: textStyle.wordSpacing?.abs() ?? 2.spMin,
                   ),
               ];
             }).toList(),
